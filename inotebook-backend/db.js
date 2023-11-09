@@ -1,12 +1,18 @@
 const mongoose = require("mongoose");
-const MONGOURI = "mongodb://127.0.0.1:27017/iNotebook?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.0.1";
+require('dotenv').config();
+const MONGODB_URL = process.env.MONGODB_URL;
 
 const connectToMongo = async()=>{
     console.log("Connecting MongoDB");
+    try {
+        await mongoose.connect(MONGODB_URL);
 
-    await mongoose.connect(MONGOURI);
+        console.log("Connected to MongoDB")
+    } catch (error) {
+        console.error(error.message);
+    }
 
-    console.log("Connected to MongoDB")
+
 }
 
 module.exports = connectToMongo;
